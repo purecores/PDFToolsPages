@@ -14,9 +14,11 @@
   <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
-  <!-- UI font: self-hosted (local-first) "Plus Jakarta Sans" via @font-face below,
-       with a China-friendly CDN (npmmirror) fallback. Chinese glyphs fall back to
-       the system fonts (PingFang SC / HarmonyOS Sans / Microsoft YaHei). -->
+  <!-- UI font: MiSans. A tiny local subset (assets/fonts/misans-*.woff2, see
+       @font-face in <style>) is the ONLY web font — no CDN, no network font
+       requests. If a local file fails to load, the browser automatically falls
+       through to the system fonts in the stack (PingFang SC / HarmonyOS Sans /
+       Microsoft YaHei …). Glyphs outside the subset do the same. -->
 
   <!-- Tailwind: local first, CDN fallback -->
   <script src="./libs/tailwindcss.js"
@@ -29,7 +31,7 @@
         extend: {
           fontFamily: {
             sans: [
-              '"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', '-apple-system',
+              '"MiSans"', 'ui-sans-serif', 'system-ui', '-apple-system',
               '"Segoe UI"', '"PingFang SC"', '"HarmonyOS Sans SC"', '"Microsoft YaHei"',
               '"Source Han Sans SC"', '"Noto Sans SC"', '"Hiragino Sans GB"', '"Noto Sans"',
               'sans-serif'
@@ -42,58 +44,32 @@
 
   <style>
     /* =================================================================
-       Webfont — "Plus Jakarta Sans" (fresh, modern, friendly)
-       Local-first (./assets/fonts), then China-friendly CDN (npmmirror).
-       A browser will only request the CDN url if the local file fails.
-       Chinese characters are rendered by the system font stack (see html{}).
+       Webfont — MiSans (Xiaomi). Fresh, modern, unified CN + Latin.
+       A tiny local subset (only the glyphs this app actually uses, ~34KB/weight)
+       lives in ./assets/fonts and is the sole web font — no CDN. unicode-range is
+       restricted to that subset so any glyph outside it (and the whole font if a
+       local file ever fails to load) falls through to the system fonts in the
+       stack — see html{} below.
        ================================================================= */
     @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-400-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-400-normal.woff2") format("woff2");
-      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+      font-family: "MiSans"; font-style: normal; font-weight: 400; font-display: swap;
+      src: url("./assets/fonts/misans-400.woff2") format("woff2");
+      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
     }
     @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-400-normal.woff2") format("woff2");
-      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+      font-family: "MiSans"; font-style: normal; font-weight: 500; font-display: swap;
+      src: url("./assets/fonts/misans-500.woff2") format("woff2");
+      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
     }
     @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 500; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-500-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-500-normal.woff2") format("woff2");
-      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+      font-family: "MiSans"; font-style: normal; font-weight: 600; font-display: swap;
+      src: url("./assets/fonts/misans-600.woff2") format("woff2");
+      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
     }
     @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 500; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-500-normal.woff2") format("woff2");
-      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-    }
-    @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 600; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-600-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-600-normal.woff2") format("woff2");
-      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-    }
-    @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 600; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-600-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-600-normal.woff2") format("woff2");
-      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-    }
-    @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-700-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-700-normal.woff2") format("woff2");
-      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-    }
-    @font-face {
-      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
-      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-700-normal.woff2") format("woff2"),
-           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-700-normal.woff2") format("woff2");
-      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+      font-family: "MiSans"; font-style: normal; font-weight: 700; font-display: swap;
+      src: url("./assets/fonts/misans-700.woff2") format("woff2");
+      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
     }
 
     /* =================================================================
@@ -138,7 +114,7 @@
     }
 
     html {
-      font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      font-family: "MiSans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
         "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC",
         "Noto Sans SC", "Hiragino Sans GB", "Noto Sans", sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -259,20 +235,6 @@
       box-shadow: 0 6px 18px -6px rgba(99, 102, 241, .55);
     }
 
-    /* Chips */
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      font-size: 11.5px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: var(--surface-muted);
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-    }
-
     /* Icon button */
     .icon-btn {
       width: 38px;
@@ -300,7 +262,6 @@
       color: var(--text);
     }
     aside .tab-btn .nav-title { font-weight: 600; font-size: 14px; letter-spacing: -.01em; }
-    aside .tab-btn .nav-sub { font-size: 11.5px; color: var(--text-faint); margin-top: 2px; line-height: 1.45; }
     aside .tab-btn:hover { background: var(--surface-muted); }
     aside .tab-btn[data-active="true"] {
       background: color-mix(in oklab, var(--accent) 7%, transparent);
@@ -497,7 +458,6 @@
       display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
     }
     .panel-title { font-size: 17px; font-weight: 700; letter-spacing: -.015em; color: var(--text); }
-    .panel-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
 
     .panel-body { padding: 20px; }
 
@@ -644,11 +604,6 @@
     }
     .split-btn-remove:hover { color: var(--text); background: var(--surface-muted); }
 
-    /* Tag-row chips at top right (desktop) */
-    .feat-chips {
-      display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
-    }
-
     /* Spinner */
     .spinner {
       width: 16px; height: 16px;
@@ -685,16 +640,6 @@
     .ic-sm { width: 16px; height: 16px; flex-shrink: 0; }
     .ic-md { width: 20px; height: 20px; flex-shrink: 0; }
 
-    /* Footer note */
-    .panel-footer {
-      padding: 12px 20px;
-      background: var(--surface-soft);
-      border-top: 1px solid var(--border-soft);
-      font-size: 12px;
-      color: var(--text-faint);
-      line-height: 1.6;
-    }
-
     /* Sticky sidebar (desktop) */
     @media (min-width: 768px) {
       .sticky-side { position: sticky; top: 84px; }
@@ -728,7 +673,6 @@
     @media (max-width: 639.98px) {
       .panel-head { padding: 15px 16px; }
       .panel-body { padding: 16px; }
-      .panel-footer { padding: 11px 16px; }
       .panel-grid { gap: 14px; }
       .dropzone { min-height: 160px; padding: 22px 16px; }
       .dropzone-icon { width: 46px; height: 46px; margin-bottom: 10px; }
@@ -779,25 +723,8 @@
         </div>
         <div class="min-w-0">
           <div class="font-semibold text-[15px] leading-tight truncate" style="color:var(--text)">PDF 工具箱</div>
-          <div class="text-[12px] truncate" style="color:var(--text-muted)">本地处理 · 不上传服务器</div>
+          <div class="text-[12px] truncate" style="color:var(--text-muted)">本地处理</div>
         </div>
-      </div>
-
-      <div class="hidden lg:flex feat-chips">
-        <span class="chip">合并</span>
-        <span class="chip">分割</span>
-        <span class="chip">B5→A4</span>
-        <span class="chip">插空白</span>
-        <span class="chip">裁剪A4</span>
-        <span class="chip">MD合并</span>
-        <span class="chip" title="所有上传的加密 PDF 会被自动识别并解密">
-          <svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-          自动解密
-        </span>
       </div>
 
       <div class="flex items-center gap-2">
@@ -834,57 +761,38 @@
         <div class="space-y-1">
           <button class="tab-btn" data-tab="merge" data-active="true">
             <div class="nav-title">PDF 合并</div>
-            <div class="nav-sub">多文件合并，可选奇数页补白</div>
           </button>
           <button class="tab-btn" data-tab="split" data-active="false">
             <div class="nav-title">PDF 分割</div>
-            <div class="nav-sub">按页码范围导出单个 / ZIP</div>
           </button>
           <button class="tab-btn" data-tab="b5toa4" data-active="false">
             <div class="nav-title">B5 → A4 排版</div>
-            <div class="nav-sub">奇数页右下，偶数页左下</div>
           </button>
           <button class="tab-btn" data-tab="blank" data-active="false">
             <div class="nav-title">插入空白页</div>
-            <div class="nav-sub">在指定页码之后插页</div>
           </button>
           <button class="tab-btn" data-tab="cropa4" data-active="false">
             <div class="nav-title">裁剪为 A4</div>
-            <div class="nav-sub">超出 A4 区域将被裁掉</div>
           </button>
           <button class="tab-btn" data-tab="mdmerge" data-active="false">
             <div class="nav-title">Markdown 合并</div>
-            <div class="nav-sub">多 .md 合并为一份 Markdown</div>
           </button>
-        </div>
-
-        <div class="mt-3 p-3 rounded-xl text-[11.5px] leading-relaxed"
-          style="background:var(--surface-muted);border:1px dashed var(--border);color:var(--text-faint)">
-          性能优化：库按需加载（首次使用对应功能时才加载 pdf-lib / JSZip / FileSaver），减少首屏阻塞并提升移动端稳定性。
         </div>
       </aside>
 
       <!-- =========== Right column: panels =========== -->
       <section class="min-w-0 space-y-5 cq">
 
-        <!-- Status / quick reset bar -->
-        <div class="surface p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div class="min-w-0">
-            <div class="font-semibold text-[15px]" style="color:var(--text)">运行状态</div>
-            <div class="text-[13px] mt-1" style="color:var(--text-muted)">
-              所有处理均在本地完成。加密 PDF 会被自动识别并解密（保留原矢量与清晰度）。
-            </div>
-          </div>
-          <div class="flex items-center gap-2 shrink-0">
-            <button id="hardReset" class="btn btn-primary btn-pill">
-              <svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 12a9 9 0 1 0 3-6.7" />
-                <path d="M3 3v6h6" />
-              </svg>
-              重置所有状态
-            </button>
-          </div>
+        <!-- Quick reset bar -->
+        <div class="flex justify-end">
+          <button id="hardReset" class="btn btn-secondary btn-pill">
+            <svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <path d="M3 3v6h6" />
+            </svg>
+            重置所有
+          </button>
         </div>
 
         <!-- ============== MERGE ============== -->
@@ -893,7 +801,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">PDF 合并</div>
-                <div class="panel-sub">支持拖拽 / 多选上传；可调整顺序；可选奇数页补白。</div>
               </div>
               <button id="mergeResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -912,7 +819,6 @@
                     </svg>
                   </div>
                   <div class="font-semibold text-[14.5px]">点击或拖拽 PDF 到此处</div>
-                  <div class="text-[12px] mt-1" style="color:var(--text-faint)">支持多选；自动按文件名排序</div>
                 </div>
               </div>
 
@@ -954,13 +860,11 @@
                       <span class="spinner"></span>
                       <span id="mergeProgressText">处理中...</span>
                     </div>
-                    <div class="text-[11.5px] mt-2" style="color:var(--text-faint)">提示：大文件在移动端可能需要更长时间。</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="panel-footer">“添加文件名书签”已按需求移除，以提升稳定性与可维护性。</div>
           </div>
         </div>
 
@@ -970,7 +874,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">PDF 分割</div>
-                <div class="panel-sub">添加多个页码范围，导出单个文件或 ZIP。</div>
               </div>
               <button id="splitResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -997,7 +900,6 @@
                         </svg>
                       </div>
                       <p class="text-[14px] font-semibold">点击或拖拽 PDF 文件到此处</p>
-                      <p class="text-[12px] mt-1" style="color:var(--text-faint)">页面仅在本地处理</p>
                     </div>
 
                     <div id="splitFileInfo" class="hidden w-full">
@@ -1058,7 +960,6 @@
                   </svg>
                   <span id="splitLoadingSpinner" class="spinner hidden"></span>
                 </button>
-                <p class="text-[12px] mt-2" style="color:var(--text-faint)">多个范围将自动打包 ZIP 下载。</p>
               </div>
 
             </div>
@@ -1071,7 +972,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">PDF B5 → A4 排版</div>
-                <div class="panel-sub">奇数页靠右下，偶数页靠左下；支持批量并打包 ZIP。</div>
               </div>
               <button id="b5ResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -1090,7 +990,6 @@
                     </svg>
                   </div>
                   <div class="text-[15px] font-semibold" style="color:var(--text)">点击或拖拽上传 PDF</div>
-                  <div class="text-[13px] mt-1" style="color:var(--text-faint)">支持批量处理</div>
                 </div>
 
                 <div id="b5FileInfo" class="hidden relative z-20">
@@ -1134,8 +1033,7 @@
                     <path d="M4 19h16" />
                   </svg>
                 </div>
-                <div class="font-semibold text-[15px]">处理完成</div>
-                <div class="text-[13px] mt-1" style="color:var(--text-muted)">文件已触发下载。如果浏览器拦截下载，请使用手动链接。</div>
+                <div class="font-semibold text-[15px]">处理完成，已开始下载</div>
                 <div class="text-[12px] mt-3">
                   <a id="b5ManualDownloadLink" href="#">手动下载</a>
                 </div>
@@ -1150,7 +1048,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">PDF 插入空白页</div>
-                <div class="panel-sub">在指定页码之后插入空白页（支持多个位置）。</div>
               </div>
               <button id="blankResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -1170,7 +1067,6 @@
                       </svg>
                     </div>
                     <div class="text-[15px] font-semibold" style="color:var(--text)">点击或拖拽上传 PDF</div>
-                    <div class="text-[12px] mt-1" style="color:var(--text-faint)">仅支持单个文件</div>
                   </div>
                 </div>
 
@@ -1188,10 +1084,7 @@
               </div>
 
               <div id="blankStep2" class="opacity-50 pointer-events-none transition">
-                <label class="block text-[13.5px] font-medium mb-2" style="color:var(--text)">2. 指定插入位置</label>
-                <p class="text-[12px] mb-2" style="color:var(--text-faint)">
-                  在这些页码之后插入空白页，例如：输入 <span class="font-semibold" style="color:var(--text)">1,3</span> 表示在第 1 页后与第 3 页后插入。
-                </p>
+                <label class="block text-[13.5px] font-medium mb-2" style="color:var(--text)">在这些页码后插入空白页</label>
                 <input type="text" id="blankPageNumbers" placeholder="例如: 1, 3, 5" class="input" disabled />
                 <p id="blankInputError" class="hidden mt-2 text-[13px]"
                   style="color:#b91c1c"></p>
@@ -1211,7 +1104,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">PDF 裁剪为 A4</div>
-                <div class="panel-sub">按 A4 尺寸裁剪：高度从底部裁掉多余部分，宽度超出则居中裁剪。</div>
               </div>
               <button id="cropa4ResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -1229,7 +1121,6 @@
                     </svg>
                   </div>
                   <div class="text-[15px] font-semibold" style="color:var(--text)">点击或拖拽上传 PDF</div>
-                  <div class="text-[13px] mt-1" style="color:var(--text-faint)">支持多文件批量处理</div>
                 </div>
 
                 <div id="cropa4FileSummary" class="hidden relative z-20">
@@ -1253,7 +1144,6 @@
                 <div class="mt-4">
                   <label class="text-[13px] font-medium" style="color:var(--text)">输出文件名后缀</label>
                   <input id="cropa4Suffix" type="text" class="input mt-1" value="_A4" />
-                  <div class="text-[12px] mt-2" style="color:var(--text-faint)">单文件将直接下载；多文件会打包为 ZIP。</div>
                 </div>
 
                 <div class="mt-5">
@@ -1264,9 +1154,6 @@
                   <div class="text-[13px] font-medium flex items-center gap-2" style="color:var(--text)">
                     <span class="spinner"></span>
                     <span id="cropa4ProgressText">处理中...</span>
-                  </div>
-                  <div class="text-[11.5px] mt-2" style="color:var(--text-faint)">
-                    提示：PDF 裁剪属于重写页面盒（CropBox/MediaBox）操作，不会重采样图片。
                   </div>
                 </div>
               </div>
@@ -1280,7 +1167,6 @@
             <div class="panel-head">
               <div class="min-w-0">
                 <div class="panel-title">Markdown 合并</div>
-                <div class="panel-sub">选择多个 .md 文件并按顺序合并，输出单个 Markdown 文件下载。</div>
               </div>
               <button id="mdmergeResetBtn" class="btn btn-ghost btn-pill">重置</button>
             </div>
@@ -1299,7 +1185,6 @@
                     </svg>
                   </div>
                   <div class="font-semibold text-[14.5px]">点击或拖拽 Markdown 文件到此处</div>
-                  <div class="text-[12px] mt-1" style="color:var(--text-faint)">支持多选；自动按文件名排序</div>
                 </div>
               </div>
 
@@ -1329,7 +1214,6 @@
                       <input id="mdmergeOutputName" type="text" class="input" value="merged_markdown" />
                       <span class="input-suffix">.md</span>
                     </div>
-                    <div class="text-[12px] mt-2" style="color:var(--text-faint)">会在文件名后追加时间戳，避免覆盖。</div>
                   </div>
 
                   <div class="mt-5">
@@ -1346,7 +1230,6 @@
               </div>
             </div>
 
-            <div class="panel-footer">说明：本功能完全在浏览器本地完成；不会上传文件到服务器。</div>
           </div>
         </div>
 
@@ -1455,7 +1338,6 @@
         </div>
       </div>
       <input id="pdfPwdInput" type="password" autocomplete="off" placeholder="请输入 PDF 密码" class="input mt-4" />
-      <div class="text-[12px] mt-2" style="color:var(--text-faint)">密码仅在本地用于解密，不会上传服务器。</div>
       <div class="mt-4 flex justify-end gap-2">
         <button id="pdfPwdCancel" class="btn btn-secondary btn-pill">取消</button>
         <button id="pdfPwdOk" class="btn btn-primary btn-pill">解密</button>

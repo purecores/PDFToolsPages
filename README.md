@@ -45,8 +45,3 @@ git remote add origin https://github.com/purecores/Config.git
 ```bash
 git push -u origin main
 ```
-
-首次拉取
-```bash
-git branch --set-upstream-to=origin/main main
-```
