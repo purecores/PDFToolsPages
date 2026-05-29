@@ -14,11 +14,9 @@
   <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
-  <!-- UI font: MiSans. A tiny local subset (assets/fonts/misans-*.woff2, see
-       @font-face in <style>) is the ONLY web font — no CDN, no network font
-       requests. If a local file fails to load, the browser automatically falls
-       through to the system fonts in the stack (PingFang SC / HarmonyOS Sans /
-       Microsoft YaHei …). Glyphs outside the subset do the same. -->
+  <!-- UI font: system fonts only — no web font, no network font requests.
+       The stack falls through to whatever the OS provides (PingFang SC /
+       HarmonyOS Sans / Microsoft YaHei / Segoe UI …) for instant first paint. -->
 
   <!-- Tailwind: local first, CDN fallback -->
   <script src="./libs/tailwindcss.js"
@@ -31,7 +29,7 @@
         extend: {
           fontFamily: {
             sans: [
-              '"MiSans"', 'ui-sans-serif', 'system-ui', '-apple-system',
+              'ui-sans-serif', 'system-ui', '-apple-system',
               '"Segoe UI"', '"PingFang SC"', '"HarmonyOS Sans SC"', '"Microsoft YaHei"',
               '"Source Han Sans SC"', '"Noto Sans SC"', '"Hiragino Sans GB"', '"Noto Sans"',
               'sans-serif'
@@ -43,35 +41,6 @@
   </script>
 
   <style>
-    /* =================================================================
-       Webfont — MiSans (Xiaomi). Fresh, modern, unified CN + Latin.
-       A tiny local subset (only the glyphs this app actually uses, ~34KB/weight)
-       lives in ./assets/fonts and is the sole web font — no CDN. unicode-range is
-       restricted to that subset so any glyph outside it (and the whole font if a
-       local file ever fails to load) falls through to the system fonts in the
-       stack — see html{} below.
-       ================================================================= */
-    @font-face {
-      font-family: "MiSans"; font-style: normal; font-weight: 400; font-display: swap;
-      src: url("./assets/fonts/misans-400.woff2") format("woff2");
-      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
-    }
-    @font-face {
-      font-family: "MiSans"; font-style: normal; font-weight: 500; font-display: swap;
-      src: url("./assets/fonts/misans-500.woff2") format("woff2");
-      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
-    }
-    @font-face {
-      font-family: "MiSans"; font-style: normal; font-weight: 600; font-display: swap;
-      src: url("./assets/fonts/misans-600.woff2") format("woff2");
-      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
-    }
-    @font-face {
-      font-family: "MiSans"; font-style: normal; font-weight: 700; font-display: swap;
-      src: url("./assets/fonts/misans-700.woff2") format("woff2");
-      unicode-range: U+0020-005d,U+005f-007e,U+00b7,U+2014,U+201c-201d,U+2026,U+2191-2193,U+2715,U+3002,U+4e00,U+4e0a-4e0b,U+4e0d-4e0e,U+4e2a,U+4e2d,U+4e3a,U+4e86,U+4e8e,U+4e9b,U+4ea7,U+4ec5,U+4ecd,U+4ee5,U+4ef6,U+4f1a,U+4f20,U+4f7f,U+4f8b,U+4fbf,U+4fdd,U+5165,U+5171,U+5176-5177,U+5185,U+518d,U+51fa-51fb,U+5206,U+5217,U+5219,U+521d,U+5220,U+522b,U+5230,U+524d,U+526a,U+5272,U+529f-52a0,U+52a8,U+5305,U+5316,U+5355,U+5360-5361,U+5370,U+539f,U+53bb,U+53cc,U+53d6-53d7,U+53ea,U+53ef,U+53f3,U+5408,U+540d-540e,U+5417,U+5426,U+542b,U+5668,U+56de,U+56f4,U+5728,U+5730,U+574f,U+5904,U+591a,U+5927,U+5931,U+5947,U+5982,U+59cb,U+5b57-5b58,U+5b8c,U+5b9a,U+5bb9,U+5bc6,U+5bf8,U+5bfc,U+5c0f,U+5c11,U+5c1d,U+5c31,U+5c3a,U+5c55,U+5de5,U+5df2,U+5e76,U+5e93,U+5e95,U+5f00,U+5f0f,U+5f15,U+5f85,U+6001,U+603b,U+6210,U+6216,U+6237,U+6240,U+624b,U+6253,U+6269,U+6279,U+62a4,U+62d6,U+62e9,U+62fd,U+6301,U+635f,U+6362,U+6392,U+63d2,U+64ce,U+652f,U+6536,U+653e,U+6548,U+6570,U+6587,U+65b0,U+65e0,U+65f6,U+662f,U+6682,U+6709,U+672a,U+672c,U+675f,U+6790,U+67d0,U+67e5,U+6807,U+68c0,U+6a21,U+6b21,U+6b63-6b64,U+6bcf,U+6cd5,U+6d4b,U+6d4f,U+6d88,U+6dfb,U+6e05,U+70b9,U+7248,U+7269,U+72b6,U+73b0,U+7406,U+751f,U+7528,U+7559,U+767d,U+7684,U+77e2,U+77e5,U+7801,U+786e,U+79fb,U+7a7a,U+7aef,U+7b2c,U+7b49,U+7bb1,U+7ea6-7ea7,U+7ed3,U+7edc,U+7ee7,U+7eea,U+7eed,U+7f00,U+7f51,U+7f6e,U+8017,U+80fd,U+81f3,U+822a,U+82e5,U+8303,U+83dc,U+8865,U+8868,U+88ab,U+88c1,U+8981,U+89c8,U+89d2,U+89e3,U+8bb0,U+8bbe-8bbf,U+8bc6,U+8bd5,U+8be5,U+8bef,U+8bf7,U+8bfb,U+8d25,U+8d77,U+8d85,U+8f6c,U+8f7d,U+8f83,U+8f93,U+8fc7,U+8fd9,U+8ffd,U+9009,U+90e8,U+91cd,U+91cf,U+9519,U+957f,U+95ee,U+964d,U+9664,U+9700,U+9762,U+9875,U+9879,U+987f,U+9898,U+ff08-ff09,U+ff0c,U+ff1a-ff1b,U+ff1f;
-    }
-
     /* =================================================================
        Design tokens — light only
        ================================================================= */
@@ -114,7 +83,7 @@
     }
 
     html {
-      font-family: "MiSans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
         "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC",
         "Noto Sans SC", "Hiragino Sans GB", "Noto Sans", sans-serif;
       -webkit-font-smoothing: antialiased;
