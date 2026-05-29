@@ -10,16 +10,13 @@
   <link rel="icon" href="./assets/favicon.png" type="image/png"
     onerror="this.onerror=null;this.href='https://cdn-icons-png.flaticon.com/512/337/337946.png';" />
 
-  <!-- Preconnect to CDN candidates for lib fallbacks -->
+  <!-- Preconnect to China-friendly CDN candidates for lib / font fallbacks -->
+  <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
-  <!-- Inter UI font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet" />
+  <!-- UI font: self-hosted (local-first) "Plus Jakarta Sans" via @font-face below,
+       with a China-friendly CDN (npmmirror) fallback. Chinese glyphs fall back to
+       the system fonts (PingFang SC / HarmonyOS Sans / Microsoft YaHei). -->
 
   <!-- Tailwind: local first, CDN fallback -->
   <script src="./libs/tailwindcss.js"
@@ -27,10 +24,78 @@
 
   <script>
     window.tailwind = window.tailwind || {};
-    tailwind.config = { theme: { extend: {} } };
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [
+              '"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', '-apple-system',
+              '"Segoe UI"', '"PingFang SC"', '"HarmonyOS Sans SC"', '"Microsoft YaHei"',
+              '"Source Han Sans SC"', '"Noto Sans SC"', '"Hiragino Sans GB"', '"Noto Sans"',
+              'sans-serif'
+            ]
+          }
+        }
+      }
+    };
   </script>
 
   <style>
+    /* =================================================================
+       Webfont — "Plus Jakarta Sans" (fresh, modern, friendly)
+       Local-first (./assets/fonts), then China-friendly CDN (npmmirror).
+       A browser will only request the CDN url if the local file fails.
+       Chinese characters are rendered by the system font stack (see html{}).
+       ================================================================= */
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-400-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-400-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-400-normal.woff2") format("woff2");
+      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 500; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-500-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-500-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 500; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-500-normal.woff2") format("woff2");
+      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 600; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-600-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-600-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 600; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-600-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-600-normal.woff2") format("woff2");
+      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-700-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-700-normal.woff2") format("woff2");
+      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+    }
+    @font-face {
+      font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
+      src: url("./assets/fonts/plus-jakarta-sans-latin-ext-700-normal.woff2") format("woff2"),
+           url("https://registry.npmmirror.com/@fontsource/plus-jakarta-sans/5.0.20/files/files/plus-jakarta-sans-latin-ext-700-normal.woff2") format("woff2");
+      unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+    }
+
     /* =================================================================
        Design tokens — light only
        ================================================================= */
@@ -73,10 +138,13 @@
     }
 
     html {
-      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC",
-        "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans", sans-serif;
+      font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+        "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC",
+        "Noto Sans SC", "Hiragino Sans GB", "Noto Sans", sans-serif;
       -webkit-font-smoothing: antialiased;
-      letter-spacing: -0.005em;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      letter-spacing: -0.006em;
     }
 
     body {
@@ -638,6 +706,57 @@
     /* Make hidden helper utility for clarity (Tailwind covers this too) */
     .is-hidden { display: none !important; }
 
+    /* =================================================================
+       Responsive refinements — balance desktop & mobile layouts
+       ================================================================= */
+    /* Fluid heading scale so titles never feel oversized on phones */
+    .panel-title { font-size: clamp(15.5px, 1.2rem + 0.3vw, 18px); }
+    .brand-mark { width: 36px; height: 36px; }
+
+    /* Desktop: a little more vertical anchoring for the sticky sidebar */
+    @media (min-width: 1024px) {
+      .sticky-side { top: 88px; }
+    }
+
+    /* Tablet: center the content nicely, slightly tighter chrome */
+    @media (min-width: 768px) and (max-width: 1023.98px) {
+      .panel-body { padding: 18px; }
+    }
+
+    /* Phones: trim oversized blocks so more fits above the fold,
+       and keep tap targets comfortable. */
+    @media (max-width: 639.98px) {
+      .panel-head { padding: 15px 16px; }
+      .panel-body { padding: 16px; }
+      .panel-footer { padding: 11px 16px; }
+      .panel-grid { gap: 14px; }
+      .dropzone { min-height: 160px; padding: 22px 16px; }
+      .dropzone-icon { width: 46px; height: 46px; margin-bottom: 10px; }
+      .surface-soft.p-4, .surface.p-4 { padding: 14px; }
+      .range-card { padding: 10px; gap: 10px; }
+      .range-grid { gap: 8px; }
+      .range-index { width: 26px; height: 26px; }
+      /* Stack panel header + reset button instead of squeezing them */
+      .panel-head { flex-wrap: wrap; }
+      .btn { padding: 11px 14px; }
+    }
+
+    /* Bottom nav: roomier targets, clearer active state */
+    @media (max-width: 767.98px) {
+      .bottom-nav .nav-row { gap: 1px; }
+      .bottom-nav .tab-btn {
+        padding: 7px 2px;
+        gap: 3px;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+      .bottom-nav .tab-btn[data-active="true"] {
+        color: var(--text);
+        background: color-mix(in oklab, var(--accent) 8%, transparent);
+      }
+      .bottom-nav .tab-btn svg { width: 21px; height: 21px; }
+    }
+
     /* The original JS toggles .hidden / .opacity-50 / .pointer-events-none — keep Tailwind classes available */
   </style>
 </head>
@@ -648,7 +767,7 @@
        HEADER
        ========================================================= -->
   <header class="app-header sticky top-0 z-30">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-3 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
         <div class="brand-mark">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -690,7 +809,7 @@
     </div>
 
     <!-- Tablet horizontal tab strip (md only — hidden on mobile via bottom-nav, hidden on lg via desktop side nav) -->
-    <div class="hidden md:block lg:hidden px-4 pb-3">
+    <div class="hidden md:block lg:hidden px-3 sm:px-4 lg:px-6 pb-3">
       <div class="mobile-tabs no-scrollbar">
         <button class="tab-btn" data-tab="merge" data-active="true">合并</button>
         <button class="tab-btn" data-tab="split" data-active="false">分割</button>
@@ -705,7 +824,7 @@
   <!-- =========================================================
        MAIN
        ========================================================= -->
-  <main class="max-w-6xl mx-auto px-4 py-6">
+  <main class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
     <div class="grid grid-cols-1 lg:grid-cols-[260px,1fr] gap-5">
 
       <!-- =========== Desktop sidebar =========== -->
@@ -1439,6 +1558,7 @@
         const PDFLib = await loadScriptWithFallback(
           [
             "./libs/pdf-lib.min.js",
+            "https://registry.npmmirror.com/pdf-lib/1.17.1/files/dist/pdf-lib.min.js",
             "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js",
             "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"
           ],
@@ -1460,6 +1580,7 @@
         const JSZip = await loadScriptWithFallback(
           [
             "./libs/jszip.min.js",
+            "https://registry.npmmirror.com/jszip/3.10.1/files/dist/jszip.min.js",
             "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",
             "https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"
           ],
@@ -1481,6 +1602,7 @@
         await loadScriptWithFallback(
           [
             "./libs/FileSaver.min.js",
+            "https://registry.npmmirror.com/file-saver/2.0.5/files/dist/FileSaver.min.js",
             "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
             "https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"
           ],
